@@ -39,10 +39,10 @@ public class PostsService {
         return new PostsResponseDto(entity);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true)     // (readOnly = true)를 주면 트랜잭션 범위는 유지하되, 조회 기능만 남겨두어 조회 속도가 개선되기 때문에 CRUD 기능이 없을 때 사용하면 좋다.
     public List<PostsListResponseDto> findAllDesc() {
         return postsRepository.findAllDesc().stream()
-                .map(PostsListResponseDto::new)     // .map(PostsListResponseDto::new) 는 .map(posts -> new PostsListResponseDto(posts))와 같다. postsRepository 결과로 넘어온 Posts의 Stream을 map을 통해 PostsListResponseDto 반환 -> List로 변환하는 메소드입니다.
+                .map(PostsListResponseDto::new)     // .map(PostsListResponseDto::new) 는 .map(posts -> new PostsListResponseDto(posts))와 같다. postsRepository 결과로 넘어온 Posts의 Stream을 map을 통해 PostsListResponseDto 반환 -> List로 변환하는 메소드이다.
                 .collect(Collectors.toList());
     }
 }
